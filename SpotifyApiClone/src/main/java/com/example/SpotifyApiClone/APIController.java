@@ -35,6 +35,18 @@ public class APIController {
                 .body(response.body());
 
     }
+    @GetMapping("/albums/{id}")
+    public ResponseEntity GetbyId(@PathVariable String id) throws URISyntaxException, IOException, InterruptedException{
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://spotify81.p.rapidapi.com/album_tracks?id="+id))
+                .header("X-RapidAPI-Key", "d1869f472amsh706c8dbcf4cf939p147e3bjsn048c5e14b83e")
+                .header("X-RapidAPI-Host", "spotify81.p.rapidapi.com")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(response.body());
+    }
 
 
 }
